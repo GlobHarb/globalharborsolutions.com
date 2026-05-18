@@ -1,0 +1,2031 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GlobalHarbor Solutions — AI Growth Systems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black: #060608;
+  --white: #F8F8FA;
+  --gray-1: #0D0D10;
+  --gray-2: #14141A;
+  --gray-3: #1E1E28;
+  --gray-4: #2A2A38;
+  --gray-5: #3A3A50;
+  --gray-6: #8888AA;
+  --gray-7: #BBBBD0;
+  --blue: #4F8EFF;
+  --blue-dim: #2060CC;
+  --blue-glow: rgba(79,142,255,0.15);
+  --orange: #FF6B35;
+  --orange-dim: rgba(255,107,53,0.12);
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ——— NOISE OVERLAY ——— */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+/* ——— SCROLLBAR ——— */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--gray-4); border-radius: 4px; }
+
+/* ——— NAV ——— */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 0 40px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(6,6,8,0.7);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  color: var(--white);
+  text-decoration: none;
+}
+
+.nav-logo span { color: var(--blue); }
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--gray-6);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+
+.nav-cta {
+  background: var(--blue);
+  color: var(--black) !important;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  transition: opacity 0.2s !important;
+}
+.nav-cta:hover { opacity: 0.85; }
+
+/* ——— HERO ——— */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 40px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: drift 8s ease-in-out infinite alternate;
+}
+
+.hero-orb-1 {
+  width: 600px; height: 600px;
+  top: -200px; left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(79,142,255,0.12) 0%, transparent 70%);
+  animation-duration: 10s;
+}
+
+.hero-orb-2 {
+  width: 400px; height: 400px;
+  bottom: -100px; left: -100px;
+  background: radial-gradient(circle, rgba(255,107,53,0.08) 0%, transparent 70%);
+  animation-duration: 7s;
+}
+
+.hero-orb-3 {
+  width: 300px; height: 300px;
+  bottom: -50px; right: -50px;
+  background: radial-gradient(circle, rgba(79,142,255,0.08) 0%, transparent 70%);
+  animation-duration: 9s;
+  animation-delay: -3s;
+}
+
+@keyframes drift {
+  from { transform: translateX(-50%) translateY(0) scale(1); }
+  to { transform: translateX(-50%) translateY(-40px) scale(1.05); }
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(79,142,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79,142,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(79,142,255,0.08);
+  border: 1px solid rgba(79,142,255,0.2);
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--blue);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  animation: fadeUp 0.8s ease both;
+}
+
+.hero-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--blue);
+  border-radius: 50%;
+  animation: pulse 2s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-h1 {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 7vw, 88px);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -3px;
+  max-width: 900px;
+  margin-bottom: 24px;
+  animation: fadeUp 0.8s ease 0.1s both;
+}
+
+.hero-h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--blue) 0%, #88BBFF 50%, var(--orange) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--gray-6);
+  max-width: 560px;
+  line-height: 1.7;
+  margin-bottom: 48px;
+  animation: fadeUp 0.8s ease 0.2s both;
+}
+
+.hero-sub strong { color: var(--gray-7); font-weight: 500; }
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: fadeUp 0.8s ease 0.3s both;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: var(--blue);
+  color: var(--black);
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0);
+  transition: background 0.2s;
+}
+.btn-primary:hover::after { background: rgba(255,255,255,0.1); }
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 30px rgba(79,142,255,0.35); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: transparent;
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 15px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.btn-secondary:hover { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.2); }
+
+.btn-ghost {
+  color: var(--gray-6);
+  font-size: 14px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+}
+.btn-ghost:hover { color: var(--white); }
+
+/* HERO DASHBOARD MOCKUP */
+.hero-mockup {
+  width: 100%;
+  max-width: 900px;
+  margin-top: 64px;
+  position: relative;
+  animation: fadeUp 0.8s ease 0.4s both;
+}
+
+.mockup-window {
+  background: var(--gray-1);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
+  position: relative;
+}
+
+.mockup-window::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(79,142,255,0.5), transparent);
+}
+
+.mockup-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.mockup-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+.mockup-dot:nth-child(1) { background: #FF5F57; }
+.mockup-dot:nth-child(2) { background: #FFBD2E; }
+.mockup-dot:nth-child(3) { background: #28CA41; }
+
+.mockup-title {
+  margin-left: 8px;
+  font-size: 12px;
+  color: var(--gray-6);
+  font-family: var(--font-body);
+}
+
+.mockup-body {
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 20px;
+  min-height: 340px;
+}
+
+.mockup-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar-item {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--gray-6);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.15s;
+}
+
+.sidebar-item.active {
+  background: rgba(79,142,255,0.1);
+  color: var(--blue);
+  border: 1px solid rgba(79,142,255,0.15);
+}
+
+.sidebar-icon {
+  width: 16px; height: 16px;
+  opacity: 0.7;
+}
+
+.mockup-main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dash-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.dash-card {
+  background: var(--gray-2);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 10px;
+  padding: 14px;
+}
+
+.dash-card-label {
+  font-size: 11px;
+  color: var(--gray-5);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 6px;
+}
+
+.dash-card-value {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1;
+}
+
+.dash-card-delta {
+  font-size: 11px;
+  color: #4ADE80;
+  margin-top: 4px;
+}
+
+.dash-chart {
+  background: var(--gray-2);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 10px;
+  padding: 16px;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.dash-chart-label {
+  font-size: 12px;
+  color: var(--gray-6);
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.chart-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 80px;
+}
+
+.chart-bar {
+  flex: 1;
+  border-radius: 4px 4px 0 0;
+  background: rgba(79,142,255,0.3);
+  transition: height 0.3s;
+  animation: barGrow 1s ease 0.5s both;
+}
+
+.chart-bar.active { background: var(--blue); }
+
+@keyframes barGrow {
+  from { transform: scaleY(0); transform-origin: bottom; }
+  to { transform: scaleY(1); transform-origin: bottom; }
+}
+
+.dash-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.mini-card {
+  background: var(--gray-2);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 10px;
+  padding: 14px;
+}
+
+.mini-card-title {
+  font-size: 11px;
+  color: var(--gray-5);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 10px;
+}
+
+.mini-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 12px;
+}
+
+.mini-row:last-child { border: none; }
+.mini-row-label { color: var(--gray-6); }
+.mini-row-val { color: var(--white); font-weight: 500; }
+.mini-row-val.green { color: #4ADE80; }
+.mini-row-val.blue { color: var(--blue); }
+
+/* ——— LOGOS / TRUST ——— */
+.trust-strip {
+  padding: 20px 40px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  overflow: hidden;
+  position: relative;
+}
+
+.trust-inner {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.trust-label {
+  font-size: 11px;
+  color: var(--gray-5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  padding-right: 32px;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  margin-right: 32px;
+}
+
+.trust-logos {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  animation: scroll 20s linear infinite;
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.trust-logo {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gray-4);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+/* ——— SECTIONS ——— */
+section {
+  padding: 120px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 20px;
+}
+
+.section-badge::before {
+  content: '';
+  width: 20px; height: 1px;
+  background: var(--blue);
+}
+
+.section-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -2px;
+  margin-bottom: 16px;
+}
+
+.section-h2 span {
+  background: linear-gradient(135deg, var(--blue) 0%, #88BBFF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-sub {
+  font-size: 17px;
+  color: var(--gray-6);
+  max-width: 560px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* ——— SERVICES ——— */
+#services {
+  max-width: 100%;
+  padding: 120px 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(14,14,20,0.8) 50%, transparent 100%);
+}
+
+#services .inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 64px;
+}
+
+.service-card {
+  background: var(--gray-1);
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+  cursor: default;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--blue), transparent);
+  transform: scaleX(0);
+  transition: transform 0.4s;
+}
+
+.service-card:hover { background: var(--gray-2); }
+.service-card:hover::before { transform: scaleX(1); }
+
+.service-icon {
+  width: 44px; height: 44px;
+  background: rgba(79,142,255,0.1);
+  border: 1px solid rgba(79,142,255,0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  font-size: 20px;
+}
+
+.service-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.service-desc {
+  font-size: 14px;
+  color: var(--gray-6);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.service-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  padding: 4px 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 100px;
+  font-size: 11px;
+  color: var(--gray-6);
+}
+
+.service-number {
+  position: absolute;
+  top: 24px; right: 24px;
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.03);
+  line-height: 1;
+}
+
+/* ——— HOW IT WORKS ——— */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 64px;
+  position: relative;
+}
+
+.steps::before {
+  content: '';
+  position: absolute;
+  left: 23px;
+  top: 28px;
+  bottom: 28px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--blue) 0%, rgba(79,142,255,0.1) 100%);
+}
+
+.step {
+  display: flex;
+  gap: 32px;
+  padding: 32px 0;
+  position: relative;
+}
+
+.step-num {
+  flex-shrink: 0;
+  width: 48px; height: 48px;
+  background: var(--gray-2);
+  border: 1px solid rgba(79,142,255,0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--blue);
+  position: relative;
+  z-index: 1;
+}
+
+.step:first-child .step-num {
+  background: var(--blue);
+  color: var(--black);
+  border-color: var(--blue);
+  box-shadow: 0 0 20px rgba(79,142,255,0.4);
+}
+
+.step-content { flex: 1; padding-top: 10px; }
+
+.step-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.step-desc {
+  font-size: 15px;
+  color: var(--gray-6);
+  line-height: 1.7;
+  max-width: 500px;
+}
+
+/* ——— AUTOMATIONS ——— */
+.auto-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 64px;
+}
+
+.auto-card {
+  background: var(--gray-1);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.auto-card:hover { border-color: rgba(79,142,255,0.25); }
+
+.auto-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(79,142,255,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.auto-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.auto-icon {
+  width: 48px; height: 48px;
+  background: var(--gray-2);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.auto-card-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+}
+
+.auto-card-sub {
+  font-size: 13px;
+  color: var(--gray-6);
+}
+
+.integration-dots {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.int-dot {
+  padding: 4px 12px;
+  background: var(--gray-2);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 100px;
+  font-size: 11px;
+  color: var(--gray-7);
+  font-weight: 500;
+}
+
+.flow-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--gray-6);
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.flow-line:last-child { border: none; }
+
+.flow-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--blue);
+  flex-shrink: 0;
+}
+
+/* ——— STATS ——— */
+#results {
+  max-width: 100%;
+  padding: 0;
+  background: var(--gray-1);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+#results .inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 40px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-top: 64px;
+}
+
+.stat-card {
+  background: var(--gray-1);
+  padding: 40px 32px;
+  position: relative;
+}
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 52px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -2px;
+  background: linear-gradient(135deg, var(--white) 0%, var(--gray-7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.stat-num .accent {
+  -webkit-text-fill-color: var(--blue);
+  color: var(--blue);
+}
+
+.stat-label {
+  font-size: 14px;
+  color: var(--gray-6);
+  line-height: 1.5;
+}
+
+/* ——— INDUSTRIES ——— */
+.industry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 64px;
+}
+
+.industry-card {
+  background: var(--gray-1);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 24px 20px;
+  text-align: center;
+  cursor: default;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.industry-card:hover {
+  border-color: rgba(79,142,255,0.25);
+  transform: translateY(-2px);
+  background: var(--gray-2);
+}
+
+.industry-card:hover .industry-icon {
+  transform: scale(1.1);
+}
+
+.industry-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+  display: block;
+  transition: transform 0.2s;
+}
+
+.industry-name {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  letter-spacing: -0.3px;
+}
+
+.industry-sub {
+  font-size: 12px;
+  color: var(--gray-5);
+}
+
+/* ——— CTA FINAL ——— */
+#cta {
+  max-width: 100%;
+  padding: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(14,14,22,0.9) 100%);
+}
+
+#cta .inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 120px 40px;
+  text-align: center;
+  position: relative;
+}
+
+.cta-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cta-orb {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(79,142,255,0.08) 0%, transparent 70%);
+  filter: blur(40px);
+}
+
+.cta-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -2.5px;
+  max-width: 700px;
+  margin: 0 auto 20px;
+  position: relative;
+}
+
+.cta-sub {
+  font-size: 18px;
+  color: var(--gray-6);
+  max-width: 480px;
+  margin: 0 auto 48px;
+  line-height: 1.6;
+  font-weight: 300;
+  position: relative;
+}
+
+.cta-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.btn-orange {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 32px;
+  background: var(--orange);
+  color: white;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.btn-orange:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 30px rgba(255,107,53,0.3);
+}
+
+/* ——— FOOTER ——— */
+footer {
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  text-decoration: none;
+  color: var(--white);
+}
+
+.footer-logo span { color: var(--blue); }
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+
+.footer-links a {
+  font-size: 13px;
+  color: var(--gray-5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--gray-7); }
+
+.footer-copy {
+  font-size: 13px;
+  color: var(--gray-5);
+}
+
+/* ——— REVEAL ON SCROLL ——— */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ——— MOBILE ——— */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  section { padding: 80px 20px; }
+  #services .inner, #results .inner, #cta .inner { padding: 80px 20px; }
+  .hero-h1 { letter-spacing: -1.5px; }
+  .mockup-body { grid-template-columns: 1fr; }
+  .mockup-sidebar { display: none; }
+  .dash-row { grid-template-columns: repeat(2, 1fr); }
+  .services-grid { grid-template-columns: 1fr; }
+  .auto-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .industry-grid { grid-template-columns: repeat(2, 1fr); }
+  footer { flex-direction: column; text-align: center; }
+  .footer-links { flex-wrap: wrap; justify-content: center; }
+  .trust-strip { padding: 20px; }
+  .trust-label { display: none; }
+}
+
+@media (max-width: 480px) {
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .cta-h2 { font-size: 32px; letter-spacing: -1px; }
+}
+
+/* ——— TYPING CURSOR ——— */
+.cursor {
+  display: inline-block;
+  width: 3px;
+  height: 0.85em;
+  background: var(--blue);
+  margin-left: 4px;
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ——— GLOW BUTTON ——— */
+.glow-wrap {
+  position: relative;
+  display: inline-block;
+}
+.glow-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 14px;
+  background: var(--blue);
+  filter: blur(16px);
+  opacity: 0.3;
+  animation: glowPulse 2.5s ease infinite;
+}
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.5; }
+}
+
+/* ——— AI WORKFLOW VISUALIZATION ——— */
+.workflow-vis {
+  background: var(--gray-1);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 32px;
+  margin-top: 64px;
+  position: relative;
+  overflow: hidden;
+}
+
+.workflow-nodes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.wf-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 100px;
+}
+
+.wf-icon {
+  width: 52px; height: 52px;
+  background: var(--gray-2);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.wf-icon.active {
+  border-color: var(--blue);
+  box-shadow: 0 0 20px rgba(79,142,255,0.2);
+  background: rgba(79,142,255,0.1);
+}
+
+.wf-label {
+  font-size: 11px;
+  color: var(--gray-6);
+  text-align: center;
+  line-height: 1.3;
+}
+
+.wf-arrow {
+  font-size: 14px;
+  color: var(--gray-5);
+  flex-shrink: 0;
+}
+
+.wf-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: var(--gray-7);
+  letter-spacing: -0.3px;
+}
+
+.wf-subtitle {
+  font-size: 12px;
+  color: var(--blue);
+  margin-top: 16px;
+  text-align: center;
+}
+
+/* ——— VOICE AI WIDGET ——— */
+.voice-widget {
+  background: var(--gray-2);
+  border: 1px solid rgba(79,142,255,0.15);
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.voice-bars {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 32px;
+  margin-bottom: 12px;
+}
+
+.voice-bar {
+  width: 4px;
+  border-radius: 4px;
+  background: var(--blue);
+  animation: voiceAnim 1.2s ease-in-out infinite;
+}
+
+.voice-bar:nth-child(1) { height: 40%; animation-delay: 0s; }
+.voice-bar:nth-child(2) { height: 70%; animation-delay: 0.1s; }
+.voice-bar:nth-child(3) { height: 100%; animation-delay: 0.2s; }
+.voice-bar:nth-child(4) { height: 60%; animation-delay: 0.3s; }
+.voice-bar:nth-child(5) { height: 80%; animation-delay: 0.4s; }
+.voice-bar:nth-child(6) { height: 45%; animation-delay: 0.5s; }
+.voice-bar:nth-child(7) { height: 90%; animation-delay: 0.15s; }
+.voice-bar:nth-child(8) { height: 55%; animation-delay: 0.25s; }
+
+@keyframes voiceAnim {
+  0%, 100% { transform: scaleY(0.4); opacity: 0.5; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+
+.voice-text {
+  font-size: 12px;
+  color: var(--gray-6);
+  font-style: italic;
+}
+
+.voice-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #4ADE80;
+  margin-top: 8px;
+}
+
+.voice-status::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: #4ADE80;
+  border-radius: 50%;
+  animation: pulse 1.5s ease infinite;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">GLOBALHARB<span>OR</span> <span style="font-weight:400; color:var(--gray-6); font-size:12px; letter-spacing:2px;">SOLUTIONS</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Servicios</a></li>
+    <li><a href="#how">Proceso</a></li>
+    <li><a href="#automations">Automatizaciones</a></li>
+    <li><a href="#industries">Industrias</a></li>
+    <li><a href="#contact" class="nav-cta">Agenda llamada</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+    <div class="hero-grid"></div>
+  </div>
+
+  <div class="hero-badge">AI-Powered Growth Systems</div>
+
+  <h1 class="hero-h1">
+    Escala tu negocio con<br>
+    <em id="heroTyped">Inteligencia Artificial</em><span class="cursor"></span>
+  </h1>
+
+  <p class="hero-sub">
+    Combinamos <strong>AI, automatización y contenido orgánico</strong> para multiplicar tus ventas en TikTok Shop, Shopify, Amazon y negocios locales — sin trabajo manual.
+  </p>
+
+  <div class="hero-actions">
+    <div class="glow-wrap">
+      <a href="#contact" class="btn-primary">
+        📞 Agenda una llamada
+      </a>
+    </div>
+    <a href="#services" class="btn-secondary">Ver soluciones →</a>
+    <a href="#automations" class="btn-ghost">Ver automatizaciones</a>
+  </div>
+
+  <!-- DASHBOARD MOCKUP -->
+  <div class="hero-mockup">
+    <div class="mockup-window">
+      <div class="mockup-bar">
+        <div class="mockup-dot"></div>
+        <div class="mockup-dot"></div>
+        <div class="mockup-dot"></div>
+        <span class="mockup-title">GlobalHarbor Solutions — AI Growth Dashboard</span>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-sidebar">
+          <div class="sidebar-item active">
+            <span class="sidebar-icon">📊</span> Overview
+          </div>
+          <div class="sidebar-item">
+            <span class="sidebar-icon">🛒</span> TikTok Shop
+          </div>
+          <div class="sidebar-item">
+            <span class="sidebar-icon">🟢</span> Shopify
+          </div>
+          <div class="sidebar-item">
+            <span class="sidebar-icon">📦</span> Inventario
+          </div>
+          <div class="sidebar-item">
+            <span class="sidebar-icon">🤖</span> AI Agents
+          </div>
+          <div class="sidebar-item">
+            <span class="sidebar-icon">👥</span> Afiliados
+          </div>
+          <div class="sidebar-item">
+            <span class="sidebar-icon">📈</span> Reportes
+          </div>
+        </div>
+        <div class="mockup-main">
+          <div class="dash-row">
+            <div class="dash-card">
+              <div class="dash-card-label">Ventas hoy</div>
+              <div class="dash-card-value">$14,832</div>
+              <div class="dash-card-delta">↑ +38% vs ayer</div>
+            </div>
+            <div class="dash-card">
+              <div class="dash-card-label">Órdenes</div>
+              <div class="dash-card-value">248</div>
+              <div class="dash-card-delta">↑ +22%</div>
+            </div>
+            <div class="dash-card">
+              <div class="dash-card-label">Conversión</div>
+              <div class="dash-card-value">6.4%</div>
+              <div class="dash-card-delta">↑ +1.2%</div>
+            </div>
+            <div class="dash-card">
+              <div class="dash-card-label">AI activa</div>
+              <div class="dash-card-value">24/7</div>
+              <div class="dash-card-delta">● En vivo</div>
+            </div>
+          </div>
+          <div class="dash-chart">
+            <div class="dash-chart-label">Ventas últimos 14 días</div>
+            <div class="chart-bars">
+              <div class="chart-bar" style="height:40%"></div>
+              <div class="chart-bar" style="height:55%"></div>
+              <div class="chart-bar" style="height:45%"></div>
+              <div class="chart-bar" style="height:70%"></div>
+              <div class="chart-bar" style="height:60%"></div>
+              <div class="chart-bar" style="height:80%"></div>
+              <div class="chart-bar" style="height:65%"></div>
+              <div class="chart-bar" style="height:90%"></div>
+              <div class="chart-bar active" style="height:75%"></div>
+              <div class="chart-bar active" style="height:85%"></div>
+              <div class="chart-bar active" style="height:95%"></div>
+              <div class="chart-bar active" style="height:78%"></div>
+              <div class="chart-bar active" style="height:88%"></div>
+              <div class="chart-bar active" style="height:100%"></div>
+            </div>
+          </div>
+          <div class="dash-bottom">
+            <div class="mini-card">
+              <div class="mini-card-title">Top Canales</div>
+              <div class="mini-row">
+                <span class="mini-row-label">TikTok Shop</span>
+                <span class="mini-row-val green">$8,412</span>
+              </div>
+              <div class="mini-row">
+                <span class="mini-row-label">Shopify</span>
+                <span class="mini-row-val blue">$4,220</span>
+              </div>
+              <div class="mini-row">
+                <span class="mini-row-label">Amazon</span>
+                <span class="mini-row-val">$2,200</span>
+              </div>
+            </div>
+            <div class="mini-card">
+              <div class="mini-card-title">AI Automatizaciones</div>
+              <div class="mini-row">
+                <span class="mini-row-label">Respuestas AI</span>
+                <span class="mini-row-val green">1,847</span>
+              </div>
+              <div class="mini-row">
+                <span class="mini-row-label">Leads capturados</span>
+                <span class="mini-row-val blue">143</span>
+              </div>
+              <div class="mini-row">
+                <span class="mini-row-label">Tiempo ahorrado</span>
+                <span class="mini-row-val">18 hrs</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-inner">
+    <span class="trust-label">Plataformas</span>
+    <div class="trust-logos">
+      <span class="trust-logo">TikTok Shop</span>
+      <span class="trust-logo">Shopify</span>
+      <span class="trust-logo">Amazon FBA</span>
+      <span class="trust-logo">Meta Ads</span>
+      <span class="trust-logo">WhatsApp AI</span>
+      <span class="trust-logo">OpenAI</span>
+      <span class="trust-logo">Zapier</span>
+      <span class="trust-logo">Make</span>
+      <span class="trust-logo">TikTok Shop</span>
+      <span class="trust-logo">Shopify</span>
+      <span class="trust-logo">Amazon FBA</span>
+      <span class="trust-logo">Meta Ads</span>
+      <span class="trust-logo">WhatsApp AI</span>
+      <span class="trust-logo">OpenAI</span>
+      <span class="trust-logo">Zapier</span>
+      <span class="trust-logo">Make</span>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div id="services">
+  <div class="inner">
+    <div class="reveal">
+      <div class="section-badge">Qué hacemos</div>
+      <h2 class="section-h2">Todo lo que necesitas<br>para <span>escalar en 2025</span></h2>
+      <p class="section-sub">Sistemas inteligentes que trabajan por ti. Desde la captación hasta la venta automatizada.</p>
+    </div>
+
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="service-number">01</div>
+        <div class="service-icon">🌐</div>
+        <div class="service-title">Desarrollo Web & Funnels</div>
+        <div class="service-desc">Páginas de alta conversión, funnels de ventas y landing pages optimizados para convertir tráfico orgánico en clientes reales.</div>
+        <div class="service-tags">
+          <span class="tag">Landing Pages</span>
+          <span class="tag">Funnels</span>
+          <span class="tag">Shopify</span>
+          <span class="tag">TikTok Shop</span>
+          <span class="tag">CRO</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-number">02</div>
+        <div class="service-icon">⚙️</div>
+        <div class="service-title">Automatización Empresarial</div>
+        <div class="service-desc">Automatizamos inventario, agenda, CRM, seguimiento de clientes, facturación y flujos de leads con tecnología de punta.</div>
+        <div class="service-tags">
+          <span class="tag">CRM</span>
+          <span class="tag">WhatsApp</span>
+          <span class="tag">Email</span>
+          <span class="tag">Leads</span>
+          <span class="tag">Inventario</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-number">03</div>
+        <div class="service-icon">🧠</div>
+        <div class="service-title">AI para E-commerce</div>
+        <div class="service-desc">Inteligencia artificial aplicada al control de inventario, análisis de métricas, predicción de ventas y operaciones automáticas.</div>
+        <div class="service-tags">
+          <span class="tag">AI Analytics</span>
+          <span class="tag">Inventory AI</span>
+          <span class="tag">Accounting AI</span>
+          <span class="tag">Forecasting</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-number">04</div>
+        <div class="service-icon">🎙️</div>
+        <div class="service-title">Voice AI Agents</div>
+        <div class="service-desc">Agentes de voz que responden llamadas, agendan citas, ofrecen productos y hacen seguimiento automático 24/7 — sin intervención humana.</div>
+        <div class="service-tags">
+          <span class="tag">Recepcionista AI</span>
+          <span class="tag">Booking</span>
+          <span class="tag">Follow-up</span>
+          <span class="tag">Ventas 24/7</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-number">05</div>
+        <div class="service-icon">📱</div>
+        <div class="service-title">TikTok Shop Growth</div>
+        <div class="service-desc">Estrategias virales, optimización de listings, creator outreach y escalamiento masivo de productos con automatización de afiliados.</div>
+        <div class="service-tags">
+          <span class="tag">Viral Strategy</span>
+          <span class="tag">Listings</span>
+          <span class="tag">Creators</span>
+          <span class="tag">Afiliados</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-number">06</div>
+        <div class="service-icon">🔧</div>
+        <div class="service-title">Automatización Local</div>
+        <div class="service-desc">Sistemas diseñados para Garage Doors, HVAC, electricistas y contratistas: agenda automática, cotizaciones AI y CRM inteligente.</div>
+        <div class="service-tags">
+          <span class="tag">Garage Doors</span>
+          <span class="tag">HVAC</span>
+          <span class="tag">Cotizaciones AI</span>
+          <span class="tag">Agenda</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="reveal">
+    <div class="section-badge">Proceso</div>
+    <h2 class="section-h2">Cómo <span>escalamos</span><br>tu negocio</h2>
+    <p class="section-sub">Un proceso probado en 5 pasos para transformar tu empresa con AI y automatización.</p>
+  </div>
+
+  <div class="steps reveal">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-content">
+        <div class="step-title">Analizamos tu negocio</div>
+        <div class="step-desc">Auditamos tu operación actual, métricas, canales de venta y procesos para identificar cuellos de botella y oportunidades de crecimiento inmediato.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-content">
+        <div class="step-title">Creamos la estrategia digital</div>
+        <div class="step-desc">Diseñamos un roadmap personalizado con los sistemas de AI, automatizaciones y canales digitales que maximizan tu ROI en el menor tiempo posible.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-content">
+        <div class="step-title">Automatizamos operaciones</div>
+        <div class="step-desc">Implementamos los flujos automáticos: CRM, inventario, respuestas AI, funnels y sistemas de seguimiento para que tu negocio opere solo.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-content">
+        <div class="step-title">Integramos AI y contenido</div>
+        <div class="step-desc">Conectamos agentes de AI, programas de afiliados y sistemas de contenido orgánico para generar tráfico y ventas en piloto automático.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">05</div>
+      <div class="step-content">
+        <div class="step-title">Escalamos y optimizamos</div>
+        <div class="step-desc">Monitoreamos métricas en tiempo real y optimizamos continuamente para que tu crecimiento sea predecible, escalable y sostenible.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUTOMATIONS -->
+<section id="automations">
+  <div class="reveal">
+    <div class="section-badge">Automatizaciones</div>
+    <h2 class="section-h2">Sistemas que trabajan<br><span>mientras duermes</span></h2>
+    <p class="section-sub">Infraestructura de AI que conecta todos tus canales y opera tu negocio de forma autónoma.</p>
+  </div>
+
+  <!-- WORKFLOW VIS -->
+  <div class="workflow-vis reveal">
+    <div class="wf-title">AI Workflow — Flujo de ventas automatizado</div>
+    <div class="workflow-nodes">
+      <div class="wf-node">
+        <div class="wf-icon active">📱</div>
+        <div class="wf-label">TikTok<br>Contenido</div>
+      </div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-node">
+        <div class="wf-icon active">👆</div>
+        <div class="wf-label">Lead<br>Capturado</div>
+      </div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-node">
+        <div class="wf-icon active">🤖</div>
+        <div class="wf-label">AI<br>Responde</div>
+      </div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-node">
+        <div class="wf-icon">🛒</div>
+        <div class="wf-label">Checkout<br>Automático</div>
+      </div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-node">
+        <div class="wf-icon">📦</div>
+        <div class="wf-label">Inventario<br>Actualizado</div>
+      </div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-node">
+        <div class="wf-icon">📊</div>
+        <div class="wf-label">Reporte<br>AI</div>
+      </div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-node">
+        <div class="wf-icon">🔄</div>
+        <div class="wf-label">Follow-up<br>Automático</div>
+      </div>
+    </div>
+    <div class="wf-subtitle">⚡ Todo esto ocurre en segundos, sin intervención humana</div>
+  </div>
+
+  <div class="auto-grid reveal">
+    <div class="auto-card">
+      <div class="auto-card-header">
+        <div class="auto-icon">📦</div>
+        <div>
+          <div class="auto-card-title">Inventario Inteligente</div>
+          <div class="auto-card-sub">Sincronización multi-canal en tiempo real</div>
+        </div>
+      </div>
+      <div class="integration-dots">
+        <span class="int-dot">TikTok Shop</span>
+        <span class="int-dot">Shopify</span>
+        <span class="int-dot">Amazon</span>
+        <span class="int-dot">Inventario físico</span>
+      </div>
+      <div class="flow-line"><div class="flow-dot"></div> Actualización automática de stock</div>
+      <div class="flow-line"><div class="flow-dot"></div> Alertas de reorden inteligentes</div>
+      <div class="flow-line"><div class="flow-dot"></div> Métricas y reportes automatizados</div>
+      <div class="flow-line"><div class="flow-dot"></div> AI Accounting Agent integrado</div>
+    </div>
+
+    <div class="auto-card">
+      <div class="auto-card-header">
+        <div class="auto-icon">🎙️</div>
+        <div>
+          <div class="auto-card-title">Voice AI Agent</div>
+          <div class="auto-card-sub">Recepcionista virtual 24/7</div>
+        </div>
+      </div>
+      <div class="voice-widget">
+        <div class="voice-bars">
+          <div class="voice-bar"></div>
+          <div class="voice-bar"></div>
+          <div class="voice-bar"></div>
+          <div class="voice-bar"></div>
+          <div class="voice-bar"></div>
+          <div class="voice-bar"></div>
+          <div class="voice-bar"></div>
+          <div class="voice-bar"></div>
+        </div>
+        <div class="voice-text">"Hola, te llamo de GlobalHarbor Solutions. ¿Aún necesitas servicio de garage door para esta semana?"</div>
+        <div class="voice-status">AI en llamada activa</div>
+      </div>
+    </div>
+
+    <div class="auto-card">
+      <div class="auto-card-header">
+        <div class="auto-icon">📅</div>
+        <div>
+          <div class="auto-card-title">Agenda Inteligente</div>
+          <div class="auto-card-sub">Booking automatizado con IA</div>
+        </div>
+      </div>
+      <div class="flow-line"><div class="flow-dot"></div> Reservas automáticas 24/7</div>
+      <div class="flow-line"><div class="flow-dot"></div> Confirmaciones por SMS/WhatsApp</div>
+      <div class="flow-line"><div class="flow-dot"></div> Recordatorios automáticos</div>
+      <div class="flow-line"><div class="flow-dot"></div> Integración con Google Calendar</div>
+      <div class="flow-line"><div class="flow-dot"></div> Follow-up post-servicio</div>
+    </div>
+
+    <div class="auto-card">
+      <div class="auto-card-header">
+        <div class="auto-icon">👥</div>
+        <div>
+          <div class="auto-card-title">Programa de Afiliados AI</div>
+          <div class="auto-card-sub">Sistema completo de creators</div>
+        </div>
+      </div>
+      <div class="integration-dots">
+        <span class="int-dot">TikTok</span>
+        <span class="int-dot">Instagram</span>
+        <span class="int-dot">YouTube</span>
+        <span class="int-dot">UGC</span>
+      </div>
+      <div class="flow-line"><div class="flow-dot"></div> Tracking de códigos promo</div>
+      <div class="flow-line"><div class="flow-dot"></div> Métricas por creador</div>
+      <div class="flow-line"><div class="flow-dot"></div> Comisiones automatizadas</div>
+      <div class="flow-line"><div class="flow-dot"></div> Dashboard de ROI por creator</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div id="results">
+  <div class="inner">
+    <div class="reveal" style="text-align:center">
+      <div class="section-badge">Resultados</div>
+      <h2 class="section-h2">Números que <span>hablan solos</span></h2>
+      <p class="section-sub" style="margin: 0 auto;">Resultados reales de negocios que implementaron nuestros sistemas de AI y automatización.</p>
+    </div>
+
+    <div class="stats-grid reveal">
+      <div class="stat-card">
+        <div class="stat-num">+<span class="accent">300</span>%</div>
+        <div class="stat-label">Crecimiento promedio de ventas en los primeros 90 días</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num"><span class="accent">24</span>/7</div>
+        <div class="stat-label">AI trabajando activa en todos los canales sin pausa</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num"><span class="accent">18</span>hrs</div>
+        <div class="stat-label">Promedio de tiempo ahorrado por semana por negocio</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num"><span class="accent">6.4</span>x</div>
+        <div class="stat-label">ROI promedio de clientes en e-commerce con nuestros sistemas</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INDUSTRIES -->
+<section id="industries">
+  <div class="reveal">
+    <div class="section-badge">Industrias</div>
+    <h2 class="section-h2">¿En qué industria<br><span>operas?</span></h2>
+    <p class="section-sub">Nuestros sistemas se adaptan a tu modelo de negocio específico.</p>
+  </div>
+
+  <div class="industry-grid reveal">
+    <div class="industry-card">
+      <span class="industry-icon">🛒</span>
+      <div class="industry-name">E-commerce</div>
+      <div class="industry-sub">Tiendas online</div>
+    </div>
+    <div class="industry-card">
+      <span class="industry-icon">📱</span>
+      <div class="industry-name">TikTok Shop</div>
+      <div class="industry-sub">Sellers virales</div>
+    </div>
+    <div class="industry-card">
+      <span class="industry-icon">🟢</span>
+      <div class="industry-name">Shopify Brands</div>
+      <div class="industry-sub">DTC brands</div>
+    </div>
+    <div class="industry-card">
+      <span class="industry-icon">🎬</span>
+      <div class="industry-name">Creadores UGC</div>
+      <div class="industry-sub">Content creators</div>
+    </div>
+    <div class="industry-card">
+      <span class="industry-icon">🚪</span>
+      <div class="industry-name">Garage Doors</div>
+      <div class="industry-sub">Técnicos locales</div>
+    </div>
+    <div class="industry-card">
+      <span class="industry-icon">❄️</span>
+      <div class="industry-name">HVAC</div>
+      <div class="industry-sub">Aire y calefacción</div>
+    </div>
+    <div class="industry-card">
+      <span class="industry-icon">⚡</span>
+      <div class="industry-name">Electricistas</div>
+      <div class="industry-sub">Servicios eléctricos</div>
+    </div>
+    <div class="industry-card">
+      <span class="industry-icon">🔨</span>
+      <div class="industry-name">Contratistas</div>
+      <div class="industry-sub">Construcción</div>
+    </div>
+    <div class="industry-card">
+      <span class="industry-icon">🍽️</span>
+      <div class="industry-name">Restaurantes</div>
+      <div class="industry-sub">Food & Beverage</div>
+    </div>
+    <div class="industry-card">
+      <span class="industry-icon">📦</span>
+      <div class="industry-name">Amazon FBA</div>
+      <div class="industry-sub">Sellers Amazon</div>
+    </div>
+    <div class="industry-card">
+      <span class="industry-icon">🏪</span>
+      <div class="industry-name">Negocios Locales</div>
+      <div class="industry-sub">Empresas pequeñas</div>
+    </div>
+    <div class="industry-card">
+      <span class="industry-icon">📊</span>
+      <div class="industry-name">Servicios B2B</div>
+      <div class="industry-sub">Consultoras</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<div id="cta">
+  <div class="inner">
+    <div class="cta-bg">
+      <div class="cta-orb"></div>
+    </div>
+
+    <div class="reveal">
+      <h2 class="cta-h2">Tu negocio necesita<br>sistemas, no más<br>trabajo manual.</h2>
+      <p class="cta-sub">Automatiza hoy. Escala mañana. Deja que la AI haga el trabajo pesado.</p>
+
+      <div class="cta-actions">
+        <div class="glow-wrap">
+          <a href="#contact" class="btn-primary" style="padding: 16px 36px; font-size: 16px;">
+            📞 Agenda tu llamada gratis
+          </a>
+        </div>
+        <a href="#services" class="btn-orange">
+          ⚡ Ver soluciones
+        </a>
+        <a href="https://wa.me/1234567890" class="btn-secondary" target="_blank">
+          💬 WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT FORM -->
+<section id="contact" style="max-width:600px; text-align:center; margin: 0 auto;">
+  <div class="reveal">
+    <div class="section-badge">Contacto</div>
+    <h2 class="section-h2" style="font-size:36px;">¿Listo para<br><span>automatizar?</span></h2>
+    <p class="section-sub" style="margin-bottom:40px; max-width:400px; margin-left:auto; margin-right:auto;">Cuéntanos sobre tu negocio. Te respondemos en menos de 24 horas con un plan de acción.</p>
+
+    <div style="background:var(--gray-1); border:1px solid rgba(255,255,255,0.07); border-radius:16px; padding:40px; text-align:left;">
+      <div style="display:grid; gap:16px;">
+        <div>
+          <label style="font-size:12px; color:var(--gray-6); text-transform:uppercase; letter-spacing:0.8px; display:block; margin-bottom:8px;">Nombre</label>
+          <input type="text" placeholder="Tu nombre" style="width:100%; background:var(--gray-2); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:12px 16px; color:var(--white); font-family:var(--font-body); font-size:15px; outline:none; transition:border 0.2s;" onfocus="this.style.borderColor='rgba(79,142,255,0.4)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
+        </div>
+        <div>
+          <label style="font-size:12px; color:var(--gray-6); text-transform:uppercase; letter-spacing:0.8px; display:block; margin-bottom:8px;">Email o WhatsApp</label>
+          <input type="text" placeholder="tu@email.com o +1 (555) 000-0000" style="width:100%; background:var(--gray-2); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:12px 16px; color:var(--white); font-family:var(--font-body); font-size:15px; outline:none; transition:border 0.2s;" onfocus="this.style.borderColor='rgba(79,142,255,0.4)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
+        </div>
+        <div>
+          <label style="font-size:12px; color:var(--gray-6); text-transform:uppercase; letter-spacing:0.8px; display:block; margin-bottom:8px;">Tipo de negocio</label>
+          <select style="width:100%; background:var(--gray-2); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:12px 16px; color:var(--gray-7); font-family:var(--font-body); font-size:15px; outline:none; appearance:none;" onfocus="this.style.borderColor='rgba(79,142,255,0.4)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
+            <option value="">Selecciona tu industria</option>
+            <option>E-commerce / TikTok Shop</option>
+            <option>Shopify / Amazon</option>
+            <option>Servicios locales (HVAC, Garage, etc.)</option>
+            <option>Creador de contenido</option>
+            <option>Restaurante / Food</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:12px; color:var(--gray-6); text-transform:uppercase; letter-spacing:0.8px; display:block; margin-bottom:8px;">¿Cuál es tu mayor reto?</label>
+          <textarea rows="3" placeholder="Cuéntanos qué quieres automatizar o escalar..." style="width:100%; background:var(--gray-2); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:12px 16px; color:var(--white); font-family:var(--font-body); font-size:15px; outline:none; resize:none; transition:border 0.2s;" onfocus="this.style.borderColor='rgba(79,142,255,0.4)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'"></textarea>
+        </div>
+        <div class="glow-wrap" style="display:block;">
+          <button style="width:100%; padding:16px; background:var(--blue); color:var(--black); border:none; border-radius:10px; font-size:16px; font-weight:700; cursor:pointer; font-family:var(--font-display); letter-spacing:-0.3px; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
+            Enviar — agenda mi llamada →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">GLOBALHARB<span>OR</span> <span style="font-weight:400; color:var(--gray-5); font-size:11px; letter-spacing:2px;">SOLUTIONS</span></a>
+  <ul class="footer-links">
+    <li><a href="#services">Servicios</a></li>
+    <li><a href="#how">Proceso</a></li>
+    <li><a href="#industries">Industrias</a></li>
+    <li><a href="#contact">Contacto</a></li>
+    <li><a href="#">Privacidad</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 GlobalHarbor Solutions. All rights reserved.</div>
+</footer>
+
+<script>
+// ——— REVEAL ON SCROLL ———
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 60);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+
+// ——— HERO TYPING ———
+const phrases = [
+  'Inteligencia Artificial',
+  'TikTok Shop',
+  'Automatización',
+  'Funnels que Convierten',
+  'Voice AI Agents',
+  'Afiliados Escalables',
+];
+let pIdx = 0, cIdx = 0, deleting = false;
+const el = document.getElementById('heroTyped');
+
+function type() {
+  const word = phrases[pIdx];
+  if (!deleting) {
+    el.textContent = word.slice(0, ++cIdx);
+    if (cIdx === word.length) { deleting = true; setTimeout(type, 2200); return; }
+  } else {
+    el.textContent = word.slice(0, --cIdx);
+    if (cIdx === 0) { deleting = false; pIdx = (pIdx + 1) % phrases.length; }
+  }
+  setTimeout(type, deleting ? 45 : 80);
+}
+setTimeout(type, 1200);
+
+// ——— ANIMATE STATS ON SCROLL ———
+function animateNum(el, target, suffix='', prefix='') {
+  let current = 0;
+  const step = target / 60;
+  const timer = setInterval(() => {
+    current = Math.min(current + step, target);
+    el.innerHTML = prefix + Math.round(current) + suffix;
+    if (current >= target) clearInterval(timer);
+  }, 20);
+}
+
+const statsObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !entry.target.dataset.animated) {
+      entry.target.dataset.animated = 'true';
+      const nums = entry.target.querySelectorAll('.stat-num');
+      // Just add visible class - numbers are static for display
+    }
+  });
+}, { threshold: 0.3 });
+
+const statsGrid = document.querySelector('.stats-grid');
+if (statsGrid) statsObs.observe(statsGrid);
+
+// ——— NAV ACTIVE STATE ———
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  if (window.scrollY > 40) {
+    nav.style.background = 'rgba(6,6,8,0.92)';
+  } else {
+    nav.style.background = 'rgba(6,6,8,0.7)';
+  }
+});
+
+// ——— SMOOTH SCROLL ———
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// ——— ANIMATED WORKFLOW NODES ———
+const nodes = document.querySelectorAll('.wf-icon');
+let activeIdx = 0;
+setInterval(() => {
+  nodes.forEach((n, i) => n.classList.toggle('active', i === activeIdx));
+  activeIdx = (activeIdx + 1) % nodes.length;
+}, 700);
+</script>
+</body>
+</html>
